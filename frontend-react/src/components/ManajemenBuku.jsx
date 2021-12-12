@@ -21,6 +21,7 @@ export default class ManajemenBuku extends React.Component {
     this.showCreate = this.showCreate.bind(this);
     this.showEdit = this.showEdit.bind(this);
     this.submitUpdate = this.submitUpdate.bind(this);
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   handleJudul(event) {
@@ -83,6 +84,10 @@ export default class ManajemenBuku extends React.Component {
       form: "",
     });
     this.props.update(this.state.inputBook);
+  }
+
+  deleteBook(book) {
+    this.props.remove(book);
   }
 
   render() {
@@ -234,7 +239,12 @@ export default class ManajemenBuku extends React.Component {
                       >
                         Edit
                       </button>
-                      <button className="btn btn-danger mr-3">Hapus</button>
+                      <button
+                        className="btn btn-danger mr-3"
+                        onClick={() => window.confirm('Yakin ingin menghapus data ini?') ? this.deleteBook(book) : ''}
+                      >
+                        Hapus
+                      </button>
                     </td>
                   </tr>
                 ))}

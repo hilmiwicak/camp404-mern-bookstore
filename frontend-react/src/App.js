@@ -27,6 +27,7 @@ export default class App extends React.Component {
     };
     this.storeData = this.storeData.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.deleteDa = this.deleteData.bind(this);
   }
 
   storeData(inputBook) {
@@ -37,6 +38,11 @@ export default class App extends React.Component {
   updateData(inputBook) {
       console.log(inputBook);
       alert("Data berhasil diperbarui");
+  }
+
+  deleteData(book) {
+    console.log(book);
+    alert("Data berhasil dihapus");
   }
 
   render() {
@@ -55,6 +61,7 @@ export default class App extends React.Component {
                   bookList={this.state.books}
                   store={this.storeData}
                   update={this.updateData}
+                  remove={this.deleteData}
                 />
               }
             />
