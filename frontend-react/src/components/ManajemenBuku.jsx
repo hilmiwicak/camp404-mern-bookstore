@@ -1,9 +1,8 @@
 import React, { Fragment } from "react";
 
 export default class ManajemenBuku extends React.Component {
-  // data
-  // event handling
   render() {
+    console.log(this.props.bookList);
     return (
       <Fragment>
         <div className="container mt-3">
