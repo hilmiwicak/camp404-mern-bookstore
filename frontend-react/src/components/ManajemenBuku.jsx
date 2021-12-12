@@ -10,6 +10,7 @@ export default class ManajemenBuku extends React.Component {
         harga: "",
         stok: 0,
       },
+      form: {},
     };
 
     this.handleJudul = this.handleJudul.bind(this);
@@ -17,6 +18,7 @@ export default class ManajemenBuku extends React.Component {
     this.handleHarga = this.handleHarga.bind(this);
     this.handleStok = this.handleStok.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.showCreate = this.showCreate.bind(this);
   }
 
   handleJudul(event) {
@@ -60,71 +62,81 @@ export default class ManajemenBuku extends React.Component {
     this.props.store(this.state.inputBook);
   }
 
+  showCreate() {
+    this.setState({
+      form: "create",
+    });
+  }
+
   render() {
     return (
       <Fragment>
         <div className="container mt-3">
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <pre>{JSON.stringify(this.state, null, 3)}</pre>
-          </div>
+          </div> */}
           <h1 className="text-center">Manajemen Buku</h1>
 
-          <div id="formTambah">
-            <h5>Tambah Buku</h5>
-            <hr />
-            <form className="form row" onSubmit={this.submitForm}>
-              <div className="col-3 my-3">
-                <input
-                  type="text"
-                  name="judul"
-                  className="form-control mx-2"
-                  placeholder="Judul"
-                  onChange={this.handleJudul}
-                />
-              </div>
-              <div className="col-3 my-3">
-                <input
-                  type="text"
-                  name="pengarang"
-                  className="form-control mx-2"
-                  placeholder="Pengarang"
-                  onChange={this.handlePengarang}
-                />
-              </div>
-              <div className="col-2 my-3">
-                <input
-                  type="text"
-                  name="harga"
-                  className="form-control mx-2"
-                  placeholder="Harga"
-                  onChange={this.handleHarga}
-                />
-              </div>
-              <div className="col-2 my-3">
-                <input
-                  type="number"
-                  name="stok"
-                  className="form-control mx-2"
-                  placeholder="stok"
-                  onChange={this.handleStok}
-                />
-              </div>
-              <div className="col-2 my-3">
-                <input
-                  type="submit"
-                  className="btn btn-primary ml-5"
-                  value="Simpan"
-                />
-              </div>
-            </form>
-          </div>
+          {this.state.form === "create" && (
+            <div id="formTambah">
+              <h5>Tambah Buku</h5>
+              <hr />
+              <form className="form row" onSubmit={this.submitForm}>
+                <div className="col-3 my-3">
+                  <input
+                    type="text"
+                    name="judul"
+                    className="form-control mx-2"
+                    placeholder="Judul"
+                    onChange={this.handleJudul}
+                  />
+                </div>
+                <div className="col-3 my-3">
+                  <input
+                    type="text"
+                    name="pengarang"
+                    className="form-control mx-2"
+                    placeholder="Pengarang"
+                    onChange={this.handlePengarang}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="text"
+                    name="harga"
+                    className="form-control mx-2"
+                    placeholder="Harga"
+                    onChange={this.handleHarga}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="number"
+                    name="stok"
+                    className="form-control mx-2"
+                    placeholder="stok"
+                    onChange={this.handleStok}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="submit"
+                    className="btn btn-primary ml-5"
+                    value="Simpan"
+                  />
+                </div>
+              </form>
+            </div>
+          )}
 
           <div id="formUbah"></div>
 
           <div id="daftarBuku">
             <h2 className="mt-3">Daftar Buku</h2>
             <hr />
-            <button className="btn btn-primary m-2">Tambah Buku</button>
+            <button className="btn btn-primary m-2" onClick={this.showCreate}>
+              Tambah Buku
+            </button>
             <table className="table table-bordered">
               <thead>
                 <tr>
