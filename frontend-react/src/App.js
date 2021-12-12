@@ -26,11 +26,17 @@ export default class App extends React.Component {
       ],
     };
     this.storeData = this.storeData.bind(this);
+    this.updateData = this.updateData.bind(this);
   }
 
   storeData(inputBook) {
     console.log(inputBook);
     alert("Data berhasil ditambahkan");
+  }
+
+  updateData(inputBook) {
+      console.log(inputBook);
+      alert("Data berhasil diperbarui");
   }
 
   render() {
@@ -48,6 +54,7 @@ export default class App extends React.Component {
                 <ManajemenBuku
                   bookList={this.state.books}
                   store={this.storeData}
+                  update={this.updateData}
                 />
               }
             />

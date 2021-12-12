@@ -17,8 +17,10 @@ export default class ManajemenBuku extends React.Component {
     this.handlePengarang = this.handlePengarang.bind(this);
     this.handleHarga = this.handleHarga.bind(this);
     this.handleStok = this.handleStok.bind(this);
-    this.submitForm = this.submitForm.bind(this);
+    this.submitCreate = this.submitCreate.bind(this);
     this.showCreate = this.showCreate.bind(this);
+    this.showEdit = this.showEdit.bind(this);
+    this.submitUpdate = this.submitUpdate.bind(this);
   }
 
   handleJudul(event) {
@@ -57,7 +59,7 @@ export default class ManajemenBuku extends React.Component {
     }));
   }
 
-  submitForm(event) {
+  submitCreate(event) {
     event.preventDefault();
     this.props.store(this.state.inputBook);
   }
@@ -66,6 +68,21 @@ export default class ManajemenBuku extends React.Component {
     this.setState({
       form: "create",
     });
+  }
+
+  showEdit(book) {
+    this.setState({
+      inputBook: book,
+      form: "edit",
+    });
+  }
+
+  submitUpdate(event) {
+    event.preventDefault();
+    this.setState({
+      form: "",
+    });
+    this.props.update(this.state.inputBook);
   }
 
   render() {
@@ -81,7 +98,7 @@ export default class ManajemenBuku extends React.Component {
             <div id="formTambah">
               <h5>Tambah Buku</h5>
               <hr />
-              <form className="form row" onSubmit={this.submitForm}>
+              <form className="form row" onSubmit={this.submitCreate}>
                 <div className="col-3 my-3">
                   <input
                     type="text"
@@ -129,7 +146,61 @@ export default class ManajemenBuku extends React.Component {
             </div>
           )}
 
-          <div id="formUbah"></div>
+          {this.state.form === "edit" && (
+            <div id="formUbah">
+              <h5>Ubah</h5>
+              <hr />
+              <form className="form row" onSubmit={this.submitUpdate}>
+                <div className="col-3 my-3">
+                  <input
+                    type="text"
+                    name="judul"
+                    className="form-control mx-2"
+                    placeholder="Judul"
+                    onChange={this.handleJudul}
+                    value={this.state.inputBook.judul}
+                  />
+                </div>
+                <div className="col-3 my-3">
+                  <input
+                    type="text"
+                    name="pengarang"
+                    className="form-control mx-2"
+                    placeholder="Pengarang"
+                    onChange={this.handlePengarang}
+                    value={this.state.inputBook.pengarang}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="text"
+                    name="harga"
+                    className="form-control mx-2"
+                    placeholder="Harga"
+                    onChange={this.handleHarga}
+                    value={this.state.inputBook.harga}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="number"
+                    name="stok"
+                    className="form-control mx-2"
+                    placeholder="stok"
+                    onChange={this.handleStok}
+                    value={this.state.inputBook.stok}
+                  />
+                </div>
+                <div className="col-2 my-3">
+                  <input
+                    type="submit"
+                    className="btn btn-primary ml-5"
+                    value="Simpan"
+                  />
+                </div>
+              </form>
+            </div>
+          )}
 
           <div id="daftarBuku">
             <h2 className="mt-3">Daftar Buku</h2>
@@ -151,13 +222,18 @@ export default class ManajemenBuku extends React.Component {
               <tbody>
                 {this.props.bookList.map((book, index) => (
                   <tr key={index}>
-                    <td>{book._id}</td>
+                    <td>{index + 1}</td>
                     <td>{book.judul}</td>
                     <td>{book.pengarang}</td>
                     <td>{book.harga}</td>
                     <td>{book.stok}</td>
                     <td>
-                      <button className="btn btn-info mr-3">Edit</button>
+                      <button
+                        className="btn btn-info mr-3"
+                        onClick={() => this.showEdit(book)}
+                      >
+                        Edit
+                      </button>
                       <button className="btn btn-danger mr-3">Hapus</button>
                     </td>
                   </tr>
