@@ -25,6 +25,7 @@ export default class App extends React.Component {
         },
       ],
     };
+
     this.storeData = this.storeData.bind(this);
     this.updateData = this.updateData.bind(this);
     this.deleteDa = this.deleteData.bind(this);
@@ -36,8 +37,8 @@ export default class App extends React.Component {
   }
 
   updateData(inputBook) {
-      console.log(inputBook);
-      alert("Data berhasil diperbarui");
+    console.log(inputBook);
+    alert("Data berhasil diperbarui");
   }
 
   deleteData(book) {
@@ -51,7 +52,11 @@ export default class App extends React.Component {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route exact path="/" element={<Beranda />} />
+            <Route
+              exact
+              path="/"
+              element={<Beranda bookList={this.state.books} />}
+            />
 
             <Route
               exact

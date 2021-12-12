@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
 
 export default class Beranda extends React.Component {
-  // data
-  // event handling
   render() {
     return (
       <Fragment>
@@ -10,7 +8,32 @@ export default class Beranda extends React.Component {
           <h1 className="text-center">
             Selamat Datang di toko buku camp404-NIC:C4211116010
           </h1>
-          <div id="katalog"></div>
+          <div id="katalog" className="mt-5">
+            <h2>Katalog Buku</h2>
+            <hr />
+            <table className="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>Judul</th>
+                  <th>Pengarang</th>
+                  <th>Harga</th>
+                  <th>Stok</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.props.bookList.map((book, index) => (
+                  <tr key={book._id}>
+                    <td>{index + 1}</td>
+                    <td>{book.judul}</td>
+                    <td>{book.pengarang}</td>
+                    <td>{book.harga}</td>
+                    <td>{book.stok}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Fragment>
     );
