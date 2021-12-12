@@ -5,24 +5,33 @@ import Navbar from "./components/Navbar";
 import ManajemenBuku from "./components/ManajemenBuku";
 
 export default class App extends React.Component {
-  state = {
-    books: [
-      {
-        _id: 1,
-        judul: "Laskar Pelangi",
-        pengarang: "Andrea Hirata",
-        harga: 86906,
-        stok: 7,
-      },
-      {
-        _id: 2,
-        judul: "Bumi",
-        pengarang: "Tere Liye",
-        harga: 85009,
-        stok: 5,
-      },
-    ],
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      books: [
+        {
+          _id: 1,
+          judul: "Laskar Pelangi",
+          pengarang: "Andrea Hirata",
+          harga: 86906,
+          stok: 7,
+        },
+        {
+          _id: 2,
+          judul: "Bumi",
+          pengarang: "Tere Liye",
+          harga: 85009,
+          stok: 5,
+        },
+      ],
+    };
+    this.storeData = this.storeData.bind(this);
+  }
+
+  storeData(inputBook) {
+    console.log(inputBook);
+    alert("Data berhasil ditambahkan");
+  }
 
   render() {
     return (
@@ -32,7 +41,16 @@ export default class App extends React.Component {
           <Routes>
             <Route exact path="/" element={<Beranda />} />
 
-            <Route exact path="/manajemen-buku" element={<ManajemenBuku bookList={this.state.books} />} />
+            <Route
+              exact
+              path="/manajemen-buku"
+              element={
+                <ManajemenBuku
+                  bookList={this.state.books}
+                  store={this.storeData}
+                />
+              }
+            />
           </Routes>
         </BrowserRouter>
       </div>
