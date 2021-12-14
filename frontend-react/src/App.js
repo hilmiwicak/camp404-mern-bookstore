@@ -15,14 +15,19 @@ export default class App extends React.Component {
     this.storeData = this.storeData.bind(this);
     this.updateData = this.updateData.bind(this);
     this.deleteDa = this.deleteData.bind(this);
+    this.getBook = this.getBook.bind(this);
   }
 
   componentDidMount() {
+    this.getBook();
+  }
+
+  getBook() {
     axios
       .get("http://localhost:4000/book")
-      .then((response) => {
+      .then((res) => {
         this.setState({
-          books: response.data,
+          books: res.data,
         });
       })
       .catch((err) => {
@@ -31,8 +36,15 @@ export default class App extends React.Component {
   }
 
   storeData(inputBook) {
-    console.log(inputBook);
-    alert("Data berhasil ditambahkan");
+    axios
+      .post("http://localhost:4000/book/add", inputBook)
+      .then((res) => {
+          this.getBook();
+          alert("Data berhasil ditambahkan");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   updateData(inputBook) {
@@ -49,8 +61,12 @@ export default class App extends React.Component {
     if (this.state.books.length === 0) {
       return <p className="text-center">Loading ...</p>;
     } else {
+      console.log(this.state);
       return (
         <div>
+          {/* <div>
+              <pre>{JSON.stringify(this.state, null, 3)}</pre>
+          </div> */}
           <BrowserRouter>
             <Navbar />
             <Routes>
