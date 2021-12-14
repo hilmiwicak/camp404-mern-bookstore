@@ -39,8 +39,8 @@ export default class App extends React.Component {
     axios
       .post("http://localhost:4000/book/add", inputBook)
       .then((res) => {
-          this.getBook();
-          alert("Data berhasil ditambahkan");
+        this.getBook();
+        alert("Data berhasil ditambahkan");
       })
       .catch((err) => {
         console.error(err);
@@ -48,8 +48,15 @@ export default class App extends React.Component {
   }
 
   updateData(inputBook) {
-    console.log(inputBook);
-    alert("Data berhasil diperbarui");
+    axios
+      .put("http://localhost:4000/book/update/" + inputBook._id, inputBook)
+      .then((res) => {
+        this.getBook();
+        alert("Data berhasil diperbarui");
+      })
+      .catch((err) => {
+          console.error(err)
+      });
   }
 
   deleteData(book) {
@@ -61,7 +68,6 @@ export default class App extends React.Component {
     if (this.state.books.length === 0) {
       return <p className="text-center">Loading ...</p>;
     } else {
-      console.log(this.state);
       return (
         <div>
           {/* <div>
