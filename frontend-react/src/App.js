@@ -14,7 +14,7 @@ export default class App extends React.Component {
 
     this.storeData = this.storeData.bind(this);
     this.updateData = this.updateData.bind(this);
-    this.deleteDa = this.deleteData.bind(this);
+    this.deleteData = this.deleteData.bind(this);
     this.getBook = this.getBook.bind(this);
   }
 
@@ -55,13 +55,20 @@ export default class App extends React.Component {
         alert("Data berhasil diperbarui");
       })
       .catch((err) => {
-          console.error(err)
+        console.error(err);
       });
   }
 
   deleteData(book) {
-    console.log(book);
-    alert("Data berhasil dihapus");
+    axios
+      .delete("http://localhost:4000/book/delete/" + book._id)
+      .then((res) => {
+        this.getBook();
+        alert("Data berhasil dihapus");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {
